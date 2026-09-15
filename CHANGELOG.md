@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Fix `mpl_to_plotly` not setting `paper_bgcolor` and `plot_bgcolor` from the matplotlib figure and axes backgrounds, so converted figures match the source figure's background colors [[#5285](https://github.com/plotly/plotly.py/pull/5285)], with thanks to @robertoffmoura for the contribution!
 - Fix rendering issue causing a too-large div when calling `Figure.show()` in Google Colab [[#5718](https://github.com/plotly/plotly.py/pull/5718)]
+- Fix `px.bar` (and other `px` functions relying on auto-detected continuous columns) treating unsigned integer columns as categorical when passed a pandas DataFrame, which caused empty or wrongly-oriented plots [[#4291](https://github.com/plotly/plotly.py/issues/4291), [#4344](https://github.com/plotly/plotly.py/issues/4344)]
 
 ### Updated
 - Update plotly.js from version 4.0.0 to version 4.1.0 [[#5722](https://github.com/plotly/plotly.py/pull/5722)]. See the [plotly.js release notes](https://github.com/plotly/plotly.js/releases/tag/v4.1.0) for details. Notable changes include:

@@ -631,6 +631,23 @@ def test_histogram_auto_orient():
     assert px.histogram(x=numerical, y=numerical, nbins=5).data[0].nbinsx == 5
 
 
+def test_bar_uint32():
+    # https://github.com/plotly/plotly.py/issues/4291
+    df = pd.DataFrame(dict(x=["a", "b", "c"], y=[1, 2, 3])).astype({"y": "uint32"})
+    fig = px.bar(df, x="x", y="y")
+    assert fig.data[0].orientation == "v"
+    assert list(fig.data[0].x) == ["a", "b", "c"]
+    assert list(fig.data[0].y) == [1, 2, 3]
+
+    # https://github.com/plotly/plotly.py/issues/4344
+    df = pd.DataFrame(dict(x=["a", "b", "c"], y1=[1, 2, 3], y2=[4, 5, 6])).astype(
+        {"y1": "uint32", "y2": "uint32"}
+    )
+    fig = px.bar(df, x="x", y=["y1", "y2"])
+    assert list(fig.data[0].y) == [1, 2, 3]
+    assert list(fig.data[1].y) == [4, 5, 6]
+
+
 def test_auto_histfunc():
     a = [1, 2]
     assert px.histogram(x=a).data[0].histfunc is None
